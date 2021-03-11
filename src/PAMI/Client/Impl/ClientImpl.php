@@ -425,6 +425,34 @@ class ClientImpl implements IClient
     }
 
     /**
+     * Sends a message to ami in Async =.
+     *
+     * @param \PAMI\Message\OutgoingMessage $message Message to send.
+     *
+     * @see ClientImpl::sendAsync()
+     * @throws \PAMI\Client\Exception\ClientException
+     * @return \PAMI\Message\Response\ResponseMessage
+     */
+    public function sendAsync(OutgoingMessage $message)
+    {
+        $messageToSend = $message->serialize();
+        $length = strlen($messageToSend);
+        $this->logger->debug(
+            '------ Sending: ------ ' . "\n" . $messageToSend . '----------'
+        );
+        $this->lastActionId = $message->getActionId();
+        if (@fwrite($this->socket, $messageToSend) < $length) {
+            throw new ClientException('Could not send message');
+        }
+
+        $this->lastActionId = false;
+        return null;
+
+
+        throw new ClientException('Read timeout');
+    }
+
+    /**
      * Closes the connection to ami.
      *
      * @return void
