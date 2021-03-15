@@ -164,6 +164,15 @@ class OriginateAction extends ActionMessage
     }
 
     /**
+     *  Устанавливает ключ 'Variable'
+     *  @param string $var
+     */
+    public function setVar($var) {
+        $this->setKey('Variable', $var);
+    }
+
+
+    /**
      * Constructor.
      *
      * @param string $channel Channel to call to.

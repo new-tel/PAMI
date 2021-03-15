@@ -448,7 +448,6 @@ class ClientImpl implements IClient
         $this->lastActionId = false;
         return null;
 
-
         throw new ClientException('Read timeout');
     }
 
